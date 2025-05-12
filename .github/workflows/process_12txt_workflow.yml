@@ -1,5 +1,9 @@
 name: Process 12.txt Workflow
-  on: [push]
+on:
+  push:
+    branches:
+      - main  # Укажите ветку, в которую будет происходить push
+      # - other-branch  # Вы можете добавить другие ветки, если нужно
 
 jobs:
   create_file:
