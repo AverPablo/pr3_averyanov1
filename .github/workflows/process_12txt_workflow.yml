@@ -1,0 +1,37 @@
+name: Process 12.txt Workflow
+on:
+  create:
+    paths:
+      - '12.txt'
+
+jobs:
+  create_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create a text file
+        run: |
+          echo "This is the content of 12.txt" > 12.txt
+          echo "Файл 12.txt создан."
+
+      - name: Upload 12.txt as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: text-file-artifact
+          path: 12.txt
+
+  process_file:
+    runs-on: ubuntu-latest
+    needs: create_file
+    steps:
+      - name: Download text file artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: text-file-artifact
+
+      - name: Read and display the content of 12.txt
+        run: |
+          content=$(cat 12.txt)
+          echo "Содержимое файла 12.txt: $content"
