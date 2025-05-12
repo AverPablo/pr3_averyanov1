@@ -1,5 +1,5 @@
 name: Process 12.txt Workflow
-  on: [commit]
+  on: [push]
 
 jobs:
   create_file:
